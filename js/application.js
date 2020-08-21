@@ -22,7 +22,8 @@ const ducks = ["Audrey", "Bob", "Coco"]
 ducks.forEach((duck) => { console.log(duck) });
 
 
-const url = "https://api.github.com/users/joz84/repos";
+// const url = "https://api.github.com/users/joz84/repos";
+const url = "https://raw.githubusercontent.com/Joz84/github-repos.github.io/master/data.json"
 
 Highcharts.getJSON(url,
   function (data) {
