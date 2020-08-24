@@ -28,85 +28,82 @@ const url = "https://raw.githubusercontent.com/Joz84/github-repos.github.io/mast
 Highcharts.getJSON(url,
   function (data) {
     const firstFormatedData = sizeByDate(data) 
-    firstFormatedData.forEach((firstFormatedData) => { 
-      console.log(firstFormatedData) }
-    );
+    console.log(firstFormatedData) 
     const secondFormatedData = groupByLanguage(data) 
-    secondFormatedData.forEach((secondFormatedData) => { 
-      console.log(secondFormatedData) }
-    );
-
-  Highcharts.chart('graph1', {
-
-    title: {
-      text: 'Repositories sizes'
-    },
+    console.log(secondFormatedData)
   
-    xAxis: {
-      type: 'datetime',
-      accessibility: {
-        rangeDescription: ''
-      }
-    },
-  
-    yAxis: {
+
+    Highcharts.chart('graph1', {
+
       title: {
-        text: null
-      }
-    },
-  
-    tooltip: {
-      crosshairs: true,
-      shared: true,
-      valueSuffix: ''
-    },
-  
-    series: [{
-      name: 'Size',
-      data: firstFormatedData,
-      zIndex: 1,
-      marker: {
-        fillColor: 'white',
-        lineWidth: 2,
-        lineColor: Highcharts.getOptions().colors[0]
-      }
-    }]
-  });
+        text: 'Repositories sizes'
+      },
+    
+      xAxis: {
+        type: 'datetime',
+        accessibility: {
+          rangeDescription: ''
+        }
+      },
+    
+      yAxis: {
+        title: {
+          text: null
+        }
+      },
+    
+      tooltip: {
+        crosshairs: true,
+        shared: true,
+        valueSuffix: ''
+      },
+    
+      series: [{
+        name: 'Size',
+        data: firstFormatedData,
+        zIndex: 1,
+        marker: {
+          fillColor: 'white',
+          lineWidth: 2,
+          lineColor: Highcharts.getOptions().colors[0]
+        }
+      }]
+    });
 
-  Highcharts.chart('graph2', {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
-    },
-    title: {
-      text: 'Repositories by languages'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-      point: {
-        valueSuffix: '%'
-      }
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: false
-        },
-        showInLegend: true
-      }
-    },
-    series: [{
-      name: 'Repositories',
-      colorByPoint: true,
-      data: secondFormatedData,
-    }]
-  });
+    Highcharts.chart('graph2', {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'Repositories by languages'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      accessibility: {
+        point: {
+          valueSuffix: '%'
+        }
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false
+          },
+          showInLegend: true
+        }
+      },
+      series: [{
+        name: 'Repositories',
+        colorByPoint: true,
+        data: secondFormatedData,
+      }]
+    });
   
     // Step 1: obtenir un tableau "firstFormatedData" qui regroupe les infos de date de création et de taille du code de chaque repo. Il doit avoir la forme suivante :
     // const firstFormatedData = [
