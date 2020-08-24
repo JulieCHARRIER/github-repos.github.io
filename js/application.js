@@ -27,12 +27,86 @@ const url = "https://raw.githubusercontent.com/Joz84/github-repos.github.io/mast
 
 Highcharts.getJSON(url,
   function (data) {
-    console.dir(data)
-    console.dir(data[0]['created_at'])
-    console.dir(Object.values(data)[0]['size'])
-   /*  url.forEach((data) => {
+    const firstFormatedData = sizeByDate(data) 
+    firstFormatedData.forEach((firstFormatedData) => { 
+      console.log(firstFormatedData) }
+    );
+    const secondFormatedData = groupByLanguage(data) 
+    secondFormatedData.forEach((secondFormatedData) => { 
+      console.log(secondFormatedData) }
+    );
 
-    } */
+  Highcharts.chart('graph1', {
+
+    title: {
+      text: 'Repositories sizes'
+    },
+  
+    xAxis: {
+      type: 'datetime',
+      accessibility: {
+        rangeDescription: ''
+      }
+    },
+  
+    yAxis: {
+      title: {
+        text: null
+      }
+    },
+  
+    tooltip: {
+      crosshairs: true,
+      shared: true,
+      valueSuffix: ''
+    },
+  
+    series: [{
+      name: 'Size',
+      data: firstFormatedData,
+      zIndex: 1,
+      marker: {
+        fillColor: 'white',
+        lineWidth: 2,
+        lineColor: Highcharts.getOptions().colors[0]
+      }
+    }]
+  });
+
+  Highcharts.chart('graph2', {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Repositories by languages'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+      point: {
+        valueSuffix: '%'
+      }
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: false
+        },
+        showInLegend: true
+      }
+    },
+    series: [{
+      name: 'Repositories',
+      colorByPoint: true,
+      data: secondFormatedData,
+    }]
+  });
   
     // Step 1: obtenir un tableau "firstFormatedData" qui regroupe les infos de date de création et de taille du code de chaque repo. Il doit avoir la forme suivante :
     // const firstFormatedData = [
@@ -66,3 +140,13 @@ Highcharts.getJSON(url,
 // Step 6a    Pour chaque box, retrouver la div (graph) que l'on souhaite cacher (la div aillant la classe "graph").
 // Step 6b    Mettre un ecouteur sur chaque box, pour que lorsque l'utilisateur click on ajoute/enlève (indice toggle) la classe "d-none" a élément graph de cette box.
 
+const graphBoxes = document.querySelectorAll('.graph-box')
+console.log(graphBoxes)
+graphBoxes.forEach((box) => {
+  console.log(box)
+  const graph_box = box.querySelector('.graph')
+  console.log(graph_box)
+  box.addEventListener("click", (event) => {
+    graph_box.classList.toggle('d-none')
+  });
+});
